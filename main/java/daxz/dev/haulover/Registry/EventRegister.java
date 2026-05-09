@@ -6,7 +6,7 @@ import org.bukkit.plugin.PluginManager;
 
 public class EventRegister {
 
-    private void registerEvents() {
+    public static void registerEvents() {
         PluginManager pm = Haulover.getInstance().getServer().getPluginManager();
         pm.registerEvents(new OverrideFarmland(), Haulover.getInstance());
 
