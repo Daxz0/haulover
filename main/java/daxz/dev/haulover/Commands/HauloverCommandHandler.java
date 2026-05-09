@@ -24,17 +24,19 @@ public class HauloverCommandHandler {
         LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal("haulover");
 
         root.then(
-                Commands.argument("give", StringArgumentType.word())
+                Commands.literal("give").then(
+                Commands.argument("item", StringArgumentType.word())
                         .suggests((ctx, builder) -> {
                             ItemRegistry.getRegisteredItems().keySet().forEach(builder::suggest);
                             return builder.buildFuture();
                         })
                         .executes(ctx -> {
                             if (ctx.getSource().getSender() instanceof Player player) {
-                                ItemRegistry.giveItem(player, ctx.getArgument("give", String.class));
+                                ItemRegistry.giveItem(player, ctx.getArgument("item", String.class));
                             }
                             return 1;
                         })
+                )
         );
 
         return root.build();
