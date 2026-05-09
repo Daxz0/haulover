@@ -31,7 +31,7 @@ public class BasicWateringCan {
 
     public ItemStack createItem() {
 
-        Material material = Material.LINGERING_POTION;
+        Material material = Material.CYAN_DYE;
         ItemStack item = ItemStack.of(material);
 
         float wateringCanSpeed = 3.0F;
