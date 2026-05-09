@@ -27,7 +27,7 @@ public class BasicWateringCan {
     public static final NamespacedKey wateringCanID = new NamespacedKey(Haulover.getInstance(), "haulover-watering_can");
 
     //flags
-    public static final NamespacedKey stopInteraction = new NamespacedKey(Haulover.getInstance(), "flag-no_interactions");
+    public static final NamespacedKey stopConsume = new NamespacedKey(Haulover.getInstance(), "flag-no_consume");
 
 
     public ItemStack createItem() {
@@ -40,7 +40,9 @@ public class BasicWateringCan {
 
 
         item.setData(DataComponentTypes.CUSTOM_NAME, Component.text("Basic Watering Can", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
-        item.setData(DataComponentTypes.CONSUMABLE, Consumable.consumable().animation(ItemUseAnimation.BOW).consumeSeconds(wateringCanSpeed));
+        item.setData(DataComponentTypes.CONSUMABLE, Consumable.consumable().animation(ItemUseAnimation.BOW).consumeSeconds(wateringCanSpeed).hasConsumeParticles(false));
+
+
         item.setData(DataComponentTypes.LORE, ItemLore.lore()
                 .addLine(Component.text(" A basic rusty watering can.", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false)
                 )
@@ -64,7 +66,7 @@ public class BasicWateringCan {
 
         item.editPersistentDataContainer(pdc -> {
             pdc.set(hauloverItemID, PersistentDataType.STRING, ID);
-//            pdc.set(stopInteraction, PersistentDataType.BOOLEAN, true);
+            pdc.set(stopConsume, PersistentDataType.BOOLEAN, true);
         });
         return item;
 
