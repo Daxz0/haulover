@@ -12,7 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
-
+@SuppressWarnings("UnstableApiUsage")
 public class BasicWateringCan {
 
     public static final String ID = "basic_watering_can";
@@ -35,31 +35,14 @@ public class BasicWateringCan {
         item.setData(DataComponentTypes.CONSUMABLE, Consumable.consumable().animation(ItemUseAnimation.BOW).consumeSeconds(wateringCanSpeed).hasConsumeParticles(false));
 
 
-//        item.setData(DataComponentTypes.LORE, ItemLore.lore()
-//                .addLine(Component.text(" A basic rusty watering can.", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false)
-//                )
-//                .addLine(Component.text("                                          ", NamedTextColor.DARK_GRAY).decorate(TextDecoration.STRIKETHROUGH))
-//                .addLine(Component.text("  Speed: ", NamedTextColor.GRAY)
-//                        .append(Component.text("3.0s", NamedTextColor.GREEN))
-//                        .decoration(TextDecoration.ITALIC, false)
-//                )
-//                .addLine(Component.text("  Capacity: ", NamedTextColor.GRAY)
-//                        .append(Component.text(0, NamedTextColor.AQUA)
-//                                .append(Component.text("/", NamedTextColor.DARK_AQUA)
-//                                        .append(Component.text(wateringCanCapacity, NamedTextColor.DARK_AQUA))))
-//                        .decoration(TextDecoration.ITALIC, false))
-//                .addLine(Component.text("                                          ", NamedTextColor.DARK_GRAY).decorate(TextDecoration.STRIKETHROUGH))
-//                .addLine(Component.text("\uD83C\uDF31 ", NamedTextColor.WHITE).append(Component.text("Farming Tool")).decoration(TextDecoration.ITALIC, false).decoration(TextDecoration.BOLD, true))
-//                .build()
-//        );
-
-        LoreTool.lore(item, "<yellow>Hello <blue>World</blue>!", "<red>line2");
-
-        // ditching the potions, too much of a hassle
-//        item.setData(DataComponentTypes.POTION_CONTENTS, PotionContents.potionContents().customColor(Color.GRAY));
-//        item.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().addHiddenComponents(DataComponentTypes.POTION_CONTENTS));
-
-
+        LoreTool.lore(item,
+        "<dark_gray> A basic rusty watering can.",
+              "<dark_gray><st>                                          </st>",
+              "<gray>  Speed: <green>" + wateringCanSpeed + "s",
+              "<gray>  Capacity: <aqua>0<dark_aqua>/<dark_aqua>" + wateringCanCapacity,
+              "<dark_gray><st>                                          </st>",
+              "<white>\uD83C\uDF31 <bold>Farming Tool"
+        );
 
 
         item.editPersistentDataContainer(pdc -> {
