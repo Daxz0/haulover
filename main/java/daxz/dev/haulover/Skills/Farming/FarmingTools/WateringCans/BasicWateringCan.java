@@ -15,6 +15,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
+import javax.naming.Name;
 import java.util.Set;
 
 import static io.papermc.paper.registry.keys.DataComponentTypeKeys.POTION_CONTENTS;
@@ -31,26 +32,32 @@ public class BasicWateringCan {
 
     public ItemStack createItem() {
 
-        Material material = Material.CYAN_DYE;
+        Material material = Material.LIGHT_GRAY_DYE;
         ItemStack item = ItemStack.of(material);
 
         float wateringCanSpeed = 3.0F;
+        int wateringCanCapacity = 100;
 
 
         item.setData(DataComponentTypes.CUSTOM_NAME, Component.text("Basic Watering Can", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
-
         item.setData(DataComponentTypes.CONSUMABLE, Consumable.consumable().animation(ItemUseAnimation.BOW).consumeSeconds(wateringCanSpeed));
-
-
         item.setData(DataComponentTypes.LORE, ItemLore.lore()
-                .addLine(Component.text("A basic rusty watering can.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false))
-                        .addLine(Component.text(" "))
-                        .addLine(Component.text("\uD83C\uDF31 ", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false).append(Component.text("Farming Tool")))
-                .build())
-        ;
-        item.setData(DataComponentTypes.POTION_CONTENTS, PotionContents.potionContents().customColor(Color.GRAY));
+                .addLine(Component.text(" A basic rusty watering can.", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false)
+                )
+                .addLine(Component.text("                                          ", NamedTextColor.DARK_GRAY).decorate(TextDecoration.STRIKETHROUGH))
+                .addLine(Component.text("  Speed: ", NamedTextColor.GRAY)
+                        .append(Component.text("3.0s", NamedTextColor.GREEN))
+                        .decoration(TextDecoration.ITALIC, false)
+                )
+                .addLine(Component.text("  Capacity: ", NamedTextColor.GRAY).append(Component.text(0, NamedTextColor.AQUA).append(Component.text("/", NamedTextColor.DARK_AQUA).append(Component.text(wateringCanCapacity, NamedTextColor.DARK_AQUA)))).decoration(TextDecoration.ITALIC, false))
+                .addLine(Component.text("                                          ", NamedTextColor.DARK_GRAY).decorate(TextDecoration.STRIKETHROUGH))
+                .addLine(Component.text("\uD83C\uDF31 ", NamedTextColor.WHITE).append(Component.text("Farming Tool")).decoration(TextDecoration.ITALIC, false).decoration(TextDecoration.BOLD, true))
+                .build()
+        );
 
-        item.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().addHiddenComponents(DataComponentTypes.POTION_CONTENTS));
+        // ditching the potions, too much of a hassle
+//        item.setData(DataComponentTypes.POTION_CONTENTS, PotionContents.potionContents().customColor(Color.GRAY));
+//        item.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().addHiddenComponents(DataComponentTypes.POTION_CONTENTS));
 
 
 
