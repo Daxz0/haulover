@@ -11,7 +11,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 public class NoInteractions implements Listener {
 
-    private static final NamespacedKey stopInteraction = new NamespacedKey(Haulover.getInstance(), "flag:no_interactions");
+    private static final NamespacedKey stopInteraction = new NamespacedKey(Haulover.getInstance(), "flag-no_interactions");
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerInteract(PlayerInteractEvent event) {

@@ -23,9 +23,11 @@ public class DebugCommand {
                               ItemStack item = player.getInventory().getItemInMainHand();
 
                           }
+                          return 0;
 
                         })
                 );
 
+        return root.build();
     }
 }

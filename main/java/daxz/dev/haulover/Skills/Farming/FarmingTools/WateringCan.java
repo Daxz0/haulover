@@ -1,14 +1,17 @@
 package daxz.dev.haulover.Skills.Farming.FarmingTools;
 
 import daxz.dev.haulover.Haulover;
+import io.papermc.paper.datacomponent.DataComponentType;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.ItemLore;
+import io.papermc.paper.datacomponent.item.SwingAnimation;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.BlockType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -16,7 +19,7 @@ public class WateringCan {
 
     public static final String ID = "basic_watering_can";
     public static final NamespacedKey hauloverItemID = new NamespacedKey(Haulover.getInstance(), "haulover_item");
-    public static final NamespacedKey stopInteraction = new NamespacedKey(Haulover.getInstance(), "flag:no_interactions");
+    public static final NamespacedKey stopInteraction = new NamespacedKey(Haulover.getInstance(), "flag-no_interactions");
 
 
     public ItemStack createItem() {
@@ -32,6 +35,8 @@ public class WateringCan {
                         .addLine(Component.text("\uD83C\uDF31 ", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false).append(Component.text("Farming Tool")))
                 .build())
         ;
+
+        item.setData(DataComponentTypes.SWING_ANIMATION, SwingAnimation.swingAnimation().type(SwingAnimation.Animation.STAB).duration(1));
 
 
         item.editPersistentDataContainer(pdc -> {
