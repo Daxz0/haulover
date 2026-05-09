@@ -26,7 +26,7 @@ public class BasicWateringCan {
     public static final NamespacedKey wateringCanID = new NamespacedKey(Haulover.getInstance(), "haulover-watering_can");
 
     //flags
-    public static final NamespacedKey stopInteraction = new NamespacedKey(Haulover.getInstance(), "flag-no_interactions");
+//    public static final NamespacedKey stopInteraction = new NamespacedKey(Haulover.getInstance(), "flag-no_interactions");
 
 
     public ItemStack createItem() {
