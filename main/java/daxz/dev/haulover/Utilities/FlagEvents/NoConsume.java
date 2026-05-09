@@ -14,7 +14,7 @@ public class NoConsume implements Listener {
 
     private static final NamespacedKey stopConsume = new NamespacedKey(Haulover.getInstance(), "flag-no_consume");
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.LOW)
     public void onPlayerConsumes(PlayerItemConsumeEvent event) {
         ItemStack item  = event.getItem();
         assert item != null;

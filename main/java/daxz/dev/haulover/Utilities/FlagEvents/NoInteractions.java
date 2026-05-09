@@ -13,10 +13,10 @@ public class NoInteractions implements Listener {
 
     private static final NamespacedKey stopInteraction = new NamespacedKey(Haulover.getInstance(), "flag-no_interactions");
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.LOW)
     public void onPlayerInteract(PlayerInteractEvent event) {
         ItemStack item  = event.getItem();
-        assert item != null;
+        if (item == null) return;
         if (Boolean.TRUE.equals(item.getItemMeta().getPersistentDataContainer().get(stopInteraction, PersistentDataType.BOOLEAN))) event.setCancelled(true);
     }
 
