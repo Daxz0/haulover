@@ -50,8 +50,7 @@ public class BasicWateringCan {
         ;
         item.setData(DataComponentTypes.POTION_CONTENTS, PotionContents.potionContents().customColor(Color.GRAY));
 
-        var registry = RegistryAccess.registryAccess().getRegistry(RegistryKey.DATA_COMPONENT_TYPE);
-        item.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().hiddenComponents(Set.of(registry.get(POTION_CONTENTS))));
+        item.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().addHiddenComponents(DataComponentTypes.POTION_CONTENTS));
 
 
 
