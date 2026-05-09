@@ -3,10 +3,8 @@ package daxz.dev.haulover.Skills.Farming.FarmingTools;
 import daxz.dev.haulover.Haulover;
 import io.papermc.paper.datacomponent.DataComponentType;
 import io.papermc.paper.datacomponent.DataComponentTypes;
-import io.papermc.paper.datacomponent.item.ItemLore;
-import io.papermc.paper.datacomponent.item.PotionContents;
-import io.papermc.paper.datacomponent.item.SwingAnimation;
-import io.papermc.paper.datacomponent.item.TooltipDisplay;
+import io.papermc.paper.datacomponent.item.*;
+import io.papermc.paper.datacomponent.item.consumable.ItemUseAnimation;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.keys.DataComponentTypeKeys;
@@ -31,6 +29,7 @@ public class WateringCan {
     public static final String ID = "basic_watering_can";
     public static final NamespacedKey hauloverItemID = new NamespacedKey(Haulover.getInstance(), "haulover_item");
     public static final NamespacedKey stopInteraction = new NamespacedKey(Haulover.getInstance(), "flag-no_interactions");
+    public static final NamespacedKey stopConsume = new NamespacedKey(Haulover.getInstance(), "flag-no_consume");
 
 
     public ItemStack createItem() {
@@ -40,7 +39,8 @@ public class WateringCan {
 
 
         item.setData(DataComponentTypes.CUSTOM_NAME, Component.text("Basic Watering Can", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
-//        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Basic Watering Can", NamedTextColor.WHITE));
+
+        item.setData(DataComponentTypes.CONSUMABLE, Consumable.consumable().animation(ItemUseAnimation.BOW));
 
 
         item.setData(DataComponentTypes.LORE, ItemLore.lore()
