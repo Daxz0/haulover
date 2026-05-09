@@ -1,0 +1,7 @@
+name: haulover
+version: '${version}'
+
+main: daxz.dev.haulover.Haulover
+bootstrapper: daxz.dev.haulover.HauloverBootstrap
+api-version: '26.1.2'
+load: POSTWORLD
