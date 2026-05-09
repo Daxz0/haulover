@@ -1,7 +1,7 @@
 package daxz.dev.haulover.Registry;
 
 
-import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCan;
+import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.BasicWateringCan;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -13,7 +13,7 @@ public class ItemRegistry {
     private static final Map<String, Supplier<ItemStack>> REGISTRY = new HashMap<>();
     public static void registerItems() {
 
-        register(WateringCan.ID, () -> new WateringCan().createItem());
+        register(BasicWateringCan.ID, () -> new BasicWateringCan().createItem());
 
     }
 
