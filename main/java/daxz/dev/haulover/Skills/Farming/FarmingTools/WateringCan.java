@@ -39,8 +39,8 @@ public class WateringCan {
         ItemStack item = ItemStack.of(material);
 
 
-//        item.setData(DataComponentTypes.CUSTOM_NAME, Component.text("Basic Watering Can", NamedTextColor.WHITE));
-        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Basic Watering Can", NamedTextColor.WHITE));
+        item.setData(DataComponentTypes.CUSTOM_NAME, Component.text("Basic Watering Can", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+//        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Basic Watering Can", NamedTextColor.WHITE));
 
 
         item.setData(DataComponentTypes.LORE, ItemLore.lore()
@@ -49,14 +49,12 @@ public class WateringCan {
                         .addLine(Component.text("\uD83C\uDF31 ", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false).append(Component.text("Farming Tool")))
                 .build())
         ;
-//        item.setData(DataComponentTypes.ITEM_MODEL, Key.key("minecraft:lingering_potion"));
         item.setData(DataComponentTypes.POTION_CONTENTS, PotionContents.potionContents().customColor(Color.GRAY));
 
         var registry = RegistryAccess.registryAccess().getRegistry(RegistryKey.DATA_COMPONENT_TYPE);
         item.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().hiddenComponents(Set.of(registry.get(POTION_CONTENTS))));
 
 
-//        item.setData(DataComponentTypes.SWING_ANIMATION, SwingAnimation.swingAnimation().type(SwingAnimation.Animation.STAB).duration(1));
 
 
         item.editPersistentDataContainer(pdc -> {
