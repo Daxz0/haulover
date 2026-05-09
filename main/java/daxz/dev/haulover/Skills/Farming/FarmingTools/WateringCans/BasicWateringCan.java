@@ -26,7 +26,7 @@ public class BasicWateringCan {
     public static final NamespacedKey wateringCanID = new NamespacedKey(Haulover.getInstance(), "haulover-watering_can");
 
     //flags
-//    public static final NamespacedKey stopInteraction = new NamespacedKey(Haulover.getInstance(), "flag-no_interactions");
+    public static final NamespacedKey stopInteraction = new NamespacedKey(Haulover.getInstance(), "flag-no_interactions");
 
 
     public ItemStack createItem() {
@@ -58,7 +58,7 @@ public class BasicWateringCan {
 
         item.editPersistentDataContainer(pdc -> {
             pdc.set(hauloverItemID, PersistentDataType.STRING, ID);
-            pdc.set(stopInteraction, PersistentDataType.BOOLEAN, true);
+//            pdc.set(stopInteraction, PersistentDataType.BOOLEAN, true);
         });
         return item;
 

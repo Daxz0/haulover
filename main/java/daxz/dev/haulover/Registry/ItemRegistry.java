@@ -25,7 +25,7 @@ public class ItemRegistry {
 
         if (REGISTRY.containsKey(id)) {
 
-            player.getInventory().setItem(player.getInventory().getHeldItemSlot(), REGISTRY.get(id).get());
+            player.getInventory().addItem(REGISTRY.get(id).get());
             return true;
         }
 
