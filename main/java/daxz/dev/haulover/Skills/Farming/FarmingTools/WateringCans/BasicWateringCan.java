@@ -2,6 +2,7 @@ package daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans;
 
 import daxz.dev.haulover.Haulover;
 import daxz.dev.haulover.Utilities.LoreTool;
+import io.papermc.paper.datacomponent.DataComponentType;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.*;
 import io.papermc.paper.datacomponent.item.consumable.ItemUseAnimation;
@@ -33,7 +34,7 @@ public class BasicWateringCan {
 
         item.setData(DataComponentTypes.CUSTOM_NAME, Component.text("Basic Watering Can", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         item.setData(DataComponentTypes.CONSUMABLE, Consumable.consumable().animation(ItemUseAnimation.BOW).consumeSeconds(wateringCanSpeed).hasConsumeParticles(false));
-
+        item.setData(DataComponentTypes.ATTACK_RANGE, AttackRange.attackRange().maxReach(3).build());
 
         LoreTool.lore(item,
         "<dark_gray> A basic rusty watering can.",
