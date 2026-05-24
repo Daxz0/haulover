@@ -1,4 +1,4 @@
-package daxz.dev.haulover.Utilities;
+package daxz.dev.haulover.Utilities.Lib;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.ItemLore;
@@ -7,7 +7,6 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class LoreTool {
 
