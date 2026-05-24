@@ -121,7 +121,7 @@ public class WateringCanHandler implements Listener {
         WateringCan canType = getWateringCanType(item);
 
         float current = ItemHelper.getItemPDCOrDefault(item, wateringCanCapacity, PersistentDataType.FLOAT, 0f);
-        float clamp = (current < 0 || current > canType.getMaxCapacity()) ? amount : current + amount;
+        float clamp = Math.clamp(current + amount, 0f, canType.getMaxCapacity());
         ItemHelper.setItemPDC(item, wateringCanCapacity, PersistentDataType.FLOAT, clamp);
         wateringCanLoreUpdate(item);
 
