@@ -1,5 +1,6 @@
 package daxz.dev.haulover;
 
+import com.jeff_media.customblockdata.CustomBlockData;
 import daxz.dev.haulover.Commands.HauloverCommandHandler;
 import daxz.dev.haulover.Registry.ItemRegistry;
 import daxz.dev.haulover.Registry.EventRegister;
@@ -18,6 +19,7 @@ public final class Haulover extends JavaPlugin {
 
         EventRegister.registerEvents();
         ItemRegistry.registerItems();
+        CustomBlockData.registerListener(this);
 
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
             commands.registrar().register(HauloverCommandHandler.haulover());

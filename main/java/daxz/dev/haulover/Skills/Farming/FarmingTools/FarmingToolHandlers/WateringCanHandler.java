@@ -1,5 +1,6 @@
 package daxz.dev.haulover.Skills.Farming.FarmingTools.FarmingToolHandlers;
 
+import com.jeff_media.customblockdata.CustomBlockData;
 import daxz.dev.haulover.Haulover;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.BasicWateringCan;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.WateringCan;
@@ -12,6 +13,8 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.Farmland;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,6 +24,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.Sound;
@@ -30,17 +34,18 @@ import java.util.List;
 import java.util.UUID;
 
 
-
 public class WateringCanHandler implements Listener {
 
     private static final NamespacedKey wateringCanID = new NamespacedKey(Haulover.getInstance(), "haulover-watering_can");
     public static final NamespacedKey wateringCanCapacity = new NamespacedKey(Haulover.getInstance(), "haulover-watering_can-capacity");
     public static final NamespacedKey hauloverItemID = new NamespacedKey(Haulover.getInstance(), "haulover_item");
-
-
+    private static final NamespacedKey blockWatering = new NamespacedKey(Haulover.getInstance(), "haulover-block-water_capacity");
 
     private static List<UUID> playersWatering = new ArrayList<>();
     private static List<UUID> wateringRatelimit = new ArrayList<>();
+
+
+    private final float blockThirst = 20;
 
     @EventHandler
     public void wateringCanUsage(PlayerInteractEvent event) {
@@ -104,12 +109,36 @@ public class WateringCanHandler implements Listener {
                         .count(25)
                         .spawn();
 
-                updateCanCapacity(item, -10f);
+                float wateringAmount = 10f;
+
+                if (updateBlockCapacity(targetBlock, wateringAmount)) updateCanCapacity(item, -wateringAmount);
 
                 timeout++;
             }
         }.runTaskTimer(Haulover.getInstance(), 0L, 10L);
 
+
+
+    }
+
+    private boolean updateBlockCapacity(Block block, float amount){
+        Block farmBlock = block.getBlockData() instanceof Farmland
+                ? block
+                : block.getLocation().add(0, -1, 0).getBlock();
+
+        PersistentDataContainer wateringData = new CustomBlockData(farmBlock, Haulover.getInstance());
+        float current = wateringData.getOrDefault(blockWatering, PersistentDataType.FLOAT, 0f);
+
+
+
+
+        if (!(farmBlock.getBlockData() instanceof Farmland farm)) return false;
+
+        farm.setMoisture(Math.clamp((int) Math.round((current / blockThirst) * 7), 0, 7));
+        farmBlock.setBlockData(farm);
+        if (current >= blockThirst) return false;
+        wateringData.set(blockWatering, PersistentDataType.FLOAT, current + amount);
+        return true;
 
 
     }
@@ -177,7 +206,6 @@ public class WateringCanHandler implements Listener {
         List<Component> lore = new ArrayList<>(itemLore.lines());
         float current = ItemHelper.getItemPDCOrDefault(item, wateringCanCapacity, PersistentDataType.FLOAT, 0f);
 
-        System.out.println(current);
         WateringCan canType = getWateringCanType(item);
 
         for (int i = 0; i < lore.size(); i++) {
@@ -188,7 +216,6 @@ public class WateringCanHandler implements Listener {
                 break;
             }
         }
-
 
         item.lore(lore);
     }
