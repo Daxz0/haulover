@@ -1,6 +1,7 @@
 package daxz.dev.haulover.Registry;
 
 
+import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.AdvancedWateringCan;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.BasicWateringCan;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,6 +15,7 @@ public class ItemRegistry {
     public static void registerItems() {
 
         register(BasicWateringCan.ID, () -> new BasicWateringCan().createItem());
+        register(AdvancedWateringCan.ID, () -> new AdvancedWateringCan().createItem());
 
     }
 

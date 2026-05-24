@@ -2,6 +2,7 @@ package daxz.dev.haulover.Skills.Farming.FarmingTools.FarmingToolHandlers;
 
 import com.jeff_media.customblockdata.CustomBlockData;
 import daxz.dev.haulover.Haulover;
+import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.AdvancedWateringCan;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.BasicWateringCan;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.WateringCan;
 import daxz.dev.haulover.Utilities.Lib.ItemHelper;
@@ -194,6 +195,7 @@ public class WateringCanHandler implements Listener {
                 .get(hauloverItemID, PersistentDataType.STRING);
         return switch (id) {
             case BasicWateringCan.ID -> BasicWateringCan.INSTANCE;
+            case AdvancedWateringCan.ID -> AdvancedWateringCan.INSTANCE;
             default -> null;
         };
     }
