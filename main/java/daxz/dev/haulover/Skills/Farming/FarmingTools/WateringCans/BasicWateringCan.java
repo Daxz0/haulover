@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @SuppressWarnings("UnstableApiUsage")
 public class BasicWateringCan implements WateringCan{
-
+    public static final String ID = "basic_watering_can";
     @Override public String getID() { return "basic_watering_can"; }
     @Override public int getMaxCapacity() { return 100; }
     @Override public float getSpeed() { return 3.0F; }
@@ -42,14 +42,14 @@ public class BasicWateringCan implements WateringCan{
 
 
         item.setData(DataComponentTypes.CUSTOM_NAME, Component.text("Basic Watering Can", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
-        item.setData(DataComponentTypes.CONSUMABLE, Consumable.consumable().animation(ItemUseAnimation.BOW).consumeSeconds(wateringCanSpeed).sound(Key.key("")).hasConsumeParticles(false));
+        item.setData(DataComponentTypes.CONSUMABLE, Consumable.consumable().animation(ItemUseAnimation.BOW).consumeSeconds(getSpeed()).sound(Key.key("")).hasConsumeParticles(false));
         item.setData(DataComponentTypes.USE_COOLDOWN, UseCooldown.useCooldown(1f).build());
 
         LoreTool.lore(item,
         "<dark_gray> A basic rusty watering can.",
               "<dark_gray><st>                                          </st>",
-              "<gray>  Speed: <green>" + wateringCanSpeed + "s",
-              "<gray>  Capacity: <aqua>0<dark_aqua>/<dark_aqua>" + wateringCanMaxCapacity,
+              "<gray>  Speed: <green>" + getSpeed() + "s",
+              "<gray>  Capacity: <aqua>0<dark_aqua>/<dark_aqua>" + getMaxCapacity(),
               "<dark_gray><st>                                          </st>",
               "<white>\uD83C\uDF31 <bold>Farming Tool"
         );

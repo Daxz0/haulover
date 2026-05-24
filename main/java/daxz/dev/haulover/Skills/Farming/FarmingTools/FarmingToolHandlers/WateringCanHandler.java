@@ -33,6 +33,7 @@ public class WateringCanHandler implements Listener {
 
     private static final NamespacedKey wateringCanID = new NamespacedKey(Haulover.getInstance(), "haulover-watering_can");
     public static final NamespacedKey wateringCanCapacity = new NamespacedKey(Haulover.getInstance(), "haulover-watering_can-capacity");
+    public static final NamespacedKey hauloverItemID = new NamespacedKey(Haulover.getInstance(), "haulover_item");
 
 
 
@@ -74,15 +75,23 @@ public class WateringCanHandler implements Listener {
                 if (targetBlock.getType() == Material.WATER) {
                     Sound drink = Sound.ENTITY_GENERIC_DRINK;
                     player.playSound(player.getLocation(), drink, 1.0F, 1.0F);
-                    ItemMeta meta = item.getItemMeta();
-                    float current = meta.getPersistentDataContainer().getOrDefault(wateringCanCapacity, PersistentDataType.FLOAT, 0f);
-                    if (current == 100) return;
-                    if (current > 100) meta.getPersistentDataContainer().set(wateringCanCapacity, PersistentDataType.FLOAT, current + 10f);
-                    meta.getPersistentDataContainer().set(wateringCanCapacity, PersistentDataType.FLOAT, current + 10f);
-                    item.setItemMeta(meta);
 
-                    wateringCanLoreUpdate(item);
+
+                    WateringCan canType = getWateringCanType(item);
+                    float percentage = (float) (canType.getMaxCapacity() * 0.15);
+                    updateCanCapacity(item, percentage);
+
+
                     return;
+                }
+                ItemMeta meta = item.getItemMeta();
+                float current = meta.getPersistentDataContainer().getOrDefault(wateringCanCapacity, PersistentDataType.FLOAT, 0f);
+
+                if (current <= 0){
+                    Sound tink = Sound.BLOCK_AMETHYST_BLOCK_BREAK;
+                    player.playSound(player.getLocation(), tink, 1.0F, 0.5F);
+                    return;
+
                 }
 
                 Sound splash = Sound.ENTITY_GENERIC_SPLASH;
@@ -93,11 +102,37 @@ public class WateringCanHandler implements Listener {
                         .count(25)
                         .spawn();
 
+                updateCanCapacity(item, -10f);
+
                 timeout++;
             }
         }.runTaskTimer(Haulover.getInstance(), 0L, 10L);
 
 
+
+    }
+
+    private void updateCanCapacity(ItemStack item, float amount) {
+
+        ItemMeta meta = item.getItemMeta();
+        WateringCan canType = getWateringCanType(item);
+
+
+        float current = meta.getPersistentDataContainer().getOrDefault(wateringCanCapacity, PersistentDataType.FLOAT, 0f);
+
+        if (current < 0) {
+            meta.getPersistentDataContainer().set(wateringCanCapacity, PersistentDataType.FLOAT, 0f);
+            return;
+        }
+        if (current > canType.getMaxCapacity()){
+            meta.getPersistentDataContainer().set(wateringCanCapacity, PersistentDataType.FLOAT, current);
+            return;
+        }
+
+        meta.getPersistentDataContainer().set(wateringCanCapacity, PersistentDataType.FLOAT, current + amount);
+        item.setItemMeta(meta);
+
+        wateringCanLoreUpdate(item);
 
     }
 
@@ -135,12 +170,10 @@ public class WateringCanHandler implements Listener {
     }
 
     private WateringCan getWateringCanType(ItemStack item) {
-        public static final NamespacedKey hauloverItemID = new NamespacedKey(Haulover.getInstance(), "haulover_item");
-
         String id = item.getItemMeta().getPersistentDataContainer()
                 .get(hauloverItemID, PersistentDataType.STRING);
         return switch (id) {
-            case BasicWateringCan.INSTANCE.getID() -> BasicWateringCan.INSTANCE;
+            case BasicWateringCan.ID -> BasicWateringCan.INSTANCE;
             default -> null;
         };
     }
@@ -154,11 +187,12 @@ public class WateringCanHandler implements Listener {
         float current = item.getItemMeta().getPersistentDataContainer().get(wateringCanCapacity, PersistentDataType.FLOAT);
 
         System.out.println(current);
+        WateringCan canType = getWateringCanType(item);
 
         for (int i = 0; i < lore.size(); i++) {
             if (MiniMessage.miniMessage().serialize(lore.get(i)).contains("Capacity:")){
                 lore.set(i, MiniMessage.miniMessage()
-                        .deserialize("<gray>  Capacity: <aqua>" + current + "<dark_aqua>/<dark_aqua>" + wateringCanMaxCapacity)
+                        .deserialize("<gray>  Capacity: <aqua>" + current + "<dark_aqua>/<dark_aqua>" + canType.getMaxCapacity())
                         .decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
                 break;
             }
