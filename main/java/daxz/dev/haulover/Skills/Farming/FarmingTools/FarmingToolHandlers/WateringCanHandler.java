@@ -3,6 +3,7 @@ package daxz.dev.haulover.Skills.Farming.FarmingTools.FarmingToolHandlers;
 import daxz.dev.haulover.Haulover;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.BasicWateringCan;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.WateringCan;
+import daxz.dev.haulover.Utilities.Lib.ItemHelper;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.ItemLore;
 import io.papermc.paper.event.player.PlayerStopUsingItemEvent;
@@ -11,6 +12,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -78,7 +80,7 @@ public class WateringCanHandler implements Listener {
 
 
                     WateringCan canType = getWateringCanType(item);
-                    float percentage = (float) (canType.getMaxCapacity() * 0.15);
+                    float percentage = (float) (Math.floor(canType.getMaxCapacity() * 0.15));
                     updateCanCapacity(item, percentage);
 
 
@@ -112,26 +114,15 @@ public class WateringCanHandler implements Listener {
 
     }
 
+
     private void updateCanCapacity(ItemStack item, float amount) {
 
         ItemMeta meta = item.getItemMeta();
         WateringCan canType = getWateringCanType(item);
 
-
-        float current = meta.getPersistentDataContainer().getOrDefault(wateringCanCapacity, PersistentDataType.FLOAT, 0f);
-
-        if (current < 0) {
-            meta.getPersistentDataContainer().set(wateringCanCapacity, PersistentDataType.FLOAT, 0f);
-            return;
-        }
-        if (current > canType.getMaxCapacity()){
-            meta.getPersistentDataContainer().set(wateringCanCapacity, PersistentDataType.FLOAT, current);
-            return;
-        }
-
-        meta.getPersistentDataContainer().set(wateringCanCapacity, PersistentDataType.FLOAT, current + amount);
-        item.setItemMeta(meta);
-
+        float current = ItemHelper.getItemPDCOrDefault(item, wateringCanCapacity, PersistentDataType.FLOAT, 0f);
+        float clamp = (current < 0 || current > canType.getMaxCapacity()) ? amount : current + amount;
+        ItemHelper.setItemPDC(item, wateringCanCapacity, PersistentDataType.FLOAT, clamp);
         wateringCanLoreUpdate(item);
 
     }
@@ -184,7 +175,7 @@ public class WateringCanHandler implements Listener {
         if (itemLore == null) return;
 
         List<Component> lore = new ArrayList<>(itemLore.lines());
-        float current = item.getItemMeta().getPersistentDataContainer().get(wateringCanCapacity, PersistentDataType.FLOAT);
+        float current = ItemHelper.getItemPDCOrDefault(item, wateringCanCapacity, PersistentDataType.FLOAT, 0f);
 
         System.out.println(current);
         WateringCan canType = getWateringCanType(item);
