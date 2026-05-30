@@ -4,9 +4,7 @@ import com.jeff_media.customblockdata.CustomBlockData;
 import daxz.dev.haulover.Commands.HauloverCommandHandler;
 import daxz.dev.haulover.Registry.ItemRegistry;
 import daxz.dev.haulover.Registry.EventRegister;
-import daxz.dev.haulover.Skills.Farming.OverrideFarmland;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Haulover extends JavaPlugin {

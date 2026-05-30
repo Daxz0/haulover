@@ -1,6 +1,8 @@
 package daxz.dev.haulover.Registry;
 
 
+import daxz.dev.haulover.Skills.Farming.Crops.Tomato.TomatoItem;
+import daxz.dev.haulover.Skills.Farming.Crops.Tomato.TomatoSeed;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.AdvancedWateringCan;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.BasicWateringCan;
 import org.bukkit.entity.Player;
@@ -16,11 +18,20 @@ public class ItemRegistry {
 
         register(BasicWateringCan.ID, () -> new BasicWateringCan().createItem());
         register(AdvancedWateringCan.ID, () -> new AdvancedWateringCan().createItem());
+        register(TomatoItem.ID, () -> new TomatoItem().createItem());
+        register(TomatoSeed.ID, () -> new TomatoSeed().createItem());
 
     }
 
     private static void register(String id, Supplier<ItemStack> supplier) {
         REGISTRY.put(id, supplier);
+    }
+
+    public static ItemStack getItem(String id) {
+        if (REGISTRY.containsKey(id)) {
+            return REGISTRY.get(id).get();
+        }
+        return null;
     }
 
     public static boolean giveItem(Player player, String id) {

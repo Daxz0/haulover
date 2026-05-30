@@ -1,9 +1,10 @@
 package daxz.dev.haulover.Registry;
 
 import daxz.dev.haulover.Haulover;
-import daxz.dev.haulover.Skills.Farming.DisabledBonemeal;
+import daxz.dev.haulover.Skills.Farming.Helpers.DisabledBonemeal;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.FarmingToolHandlers.WateringCanHandler;
-import daxz.dev.haulover.Skills.Farming.OverrideFarmland;
+import daxz.dev.haulover.Skills.Farming.Helpers.OverrideFarmland;
+import daxz.dev.haulover.Skills.Farming.Helpers.RandomSeedDrop;
 import daxz.dev.haulover.Utilities.FlagEvents.NoConsume;
 import daxz.dev.haulover.Utilities.FlagEvents.NoInteractions;
 import org.bukkit.plugin.PluginManager;
@@ -17,6 +18,7 @@ public class EventRegister {
         pm.registerEvents(new NoInteractions(), Haulover.getInstance());
         pm.registerEvents(new NoConsume(), Haulover.getInstance());
         pm.registerEvents(new DisabledBonemeal(), Haulover.getInstance());
+        pm.registerEvents(new RandomSeedDrop(), Haulover.getInstance());
 
     }
 }

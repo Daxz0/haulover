@@ -1,9 +1,8 @@
-package daxz.dev.haulover.Skills.Farming;
+package daxz.dev.haulover.Skills.Farming.Helpers;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFertilizeEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
 
 public class DisabledBonemeal implements Listener {
 
