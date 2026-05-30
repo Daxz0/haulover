@@ -49,7 +49,8 @@ public class AdvancedWateringCan implements WateringCan{
                 "GGG"
         );
 
-        item.editPersistentDataContainer(pdc -> {
+        ItemStack ing = BasicWateringCan.INSTANCE.createItem();
+        ing.editPersistentDataContainer(pdc -> {
 
             pdc.remove(uuid);
             pdc.remove(wateringCanID);
@@ -57,7 +58,7 @@ public class AdvancedWateringCan implements WateringCan{
         });
 
         recipe.setIngredient('G', Material.GOLD_INGOT);
-        recipe.setIngredient('B', new RecipeChoice.ExactChoice(item));
+        recipe.setIngredient('B', new RecipeChoice.ExactChoice(ing));
 
         return recipe;
 
