@@ -24,7 +24,6 @@ public class OverrideFarmland implements Listener {
 
     @EventHandler
     public void growTickHandler(BlockGrowEvent event){
-        event.setCancelled(true);
 
         Block block = event.getBlock();
         Location loc = block.getLocation();
@@ -32,10 +31,10 @@ public class OverrideFarmland implements Listener {
         PersistentDataContainer blockData = new CustomBlockData(block, Haulover.getInstance());
 
         if (blockData.get(blockWatering, PersistentDataType.FLOAT) != null){
-
-
-
+            // TODO
+            return; //add future crop stages here
         }
+        event.setCancelled(true);
     }
 
 }
