@@ -12,6 +12,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.Objects;
 
 import static daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.BasicWateringCan.hauloverItemID;
+import static daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.BasicWateringCan.wateringCanCapacity;
 
 public class AdvancedWateringCanRecipe implements Listener {
 
@@ -26,13 +27,22 @@ public class AdvancedWateringCanRecipe implements Listener {
         var pdc = meta.getPersistentDataContainer();
         if (!BasicWateringCan.ID.equals(pdc.get(hauloverItemID, PersistentDataType.STRING))) return;
 
+        float reserved = pdc.getOrDefault(wateringCanCapacity, PersistentDataType.FLOAT, 0f);
+
         for (int i = 0; i < 9; i++) {
             if (i == 4) continue;
             ItemStack slot = event.getInventory().getMatrix()[i];
             if (slot == null || slot.getType() != Material.GOLD_INGOT) return;
         }
 
-        event.getInventory().setResult(AdvancedWateringCan.INSTANCE.createItem());
+        System.out.println(reserved);
+
+        ItemStack item = AdvancedWateringCan.INSTANCE.createItem();
+        item.editPersistentDataContainer(adc -> {
+            adc.set(wateringCanCapacity, PersistentDataType.FLOAT, reserved);
+        });
+
+        event.getInventory().setResult(item);
     }
     
 }
