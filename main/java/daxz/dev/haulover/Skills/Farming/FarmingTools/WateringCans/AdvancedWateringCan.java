@@ -41,7 +41,7 @@ public class AdvancedWateringCan implements WateringCan{
     public ShapedRecipe getRecipe() {
         NamespacedKey key = new NamespacedKey(Haulover.getInstance(), ID);
         ItemStack item = createItem();
-        ShapedRecipe recipe = new ShapedRecipe(key, item));
+        ShapedRecipe recipe = new ShapedRecipe(key, item);
 
         recipe.shape(
                 "GGG",

@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class ItemRegistry {
-    private static final Map<String, Supplier<ItemStack>> REGISTRY = new HashMap<>();
+    private static final Map<String, HauloverItem> REGISTRY = new HashMap<>();
     public static void registerItems() {
 
         register(BasicWateringCan.INSTANCE);
@@ -30,27 +30,26 @@ public class ItemRegistry {
 
         REGISTRY.put(item.getID(), item);
         ShapedRecipe recipe = item.getRecipe();
+
+        if (recipe != null) {
+            Haulover.getInstance().getServer().addRecipe(recipe);
+        }
     }
 
     public static ItemStack getItem(String id) {
-        if (REGISTRY.containsKey(id)) {
-            return REGISTRY.get(id).get();
-        }
-        return null;
+        HauloverItem item = REGISTRY.get(id);
+        return item != null ? item.createItem() : null;
     }
 
     public static boolean giveItem(Player player, String id) {
-
-        if (REGISTRY.containsKey(id)) {
-
-            player.getInventory().addItem(REGISTRY.get(id).get());
+        HauloverItem item = REGISTRY.get(id);
+        if (item != null) {
+            player.getInventory().addItem(item.createItem());
             return true;
         }
-
         return false;
-
     }
 
-    public static Map<String, Supplier<ItemStack>> getRegisteredItems() {return REGISTRY;}
+    public static Map<String, HauloverItem> getRegisteredItems() {return REGISTRY;}
 
 }
