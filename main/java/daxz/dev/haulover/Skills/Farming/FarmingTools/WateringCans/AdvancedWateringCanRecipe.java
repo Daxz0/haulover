@@ -1,5 +1,6 @@
 package daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans;
 
+import daxz.dev.haulover.Skills.Farming.FarmingTools.FarmingToolHandlers.WateringCanHandler;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -38,9 +39,7 @@ public class AdvancedWateringCanRecipe implements Listener {
         System.out.println(reserved);
 
         ItemStack item = AdvancedWateringCan.INSTANCE.createItem();
-        item.editPersistentDataContainer(adc -> {
-            adc.set(wateringCanCapacity, PersistentDataType.FLOAT, reserved);
-        });
+        WateringCanHandler.updateCanCapacity(item, reserved);
 
         event.getInventory().setResult(item);
     }

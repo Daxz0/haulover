@@ -143,7 +143,7 @@ public class WateringCanHandler implements Listener {
     }
 
 
-    private void updateCanCapacity(ItemStack item, float amount) {
+    public static void updateCanCapacity(ItemStack item, float amount) {
 
         ItemMeta meta = item.getItemMeta();
         WateringCan canType = getWateringCanType(item);
@@ -188,7 +188,7 @@ public class WateringCanHandler implements Listener {
 
     }
 
-    private WateringCan getWateringCanType(ItemStack item) {
+    private static WateringCan getWateringCanType(ItemStack item) {
         String id = item.getItemMeta().getPersistentDataContainer()
                 .get(hauloverItemID, PersistentDataType.STRING);
         return switch (id) {
@@ -199,7 +199,7 @@ public class WateringCanHandler implements Listener {
     }
 
 
-    private void wateringCanLoreUpdate(ItemStack item) {
+    private static void wateringCanLoreUpdate(ItemStack item) {
         ItemLore itemLore = item.getData(DataComponentTypes.LORE);
         if (itemLore == null) return;
 
