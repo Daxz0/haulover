@@ -1,12 +1,15 @@
 package daxz.dev.haulover.Registry;
 
 
+import daxz.dev.haulover.Haulover;
 import daxz.dev.haulover.Skills.Farming.Crops.Tomato.TomatoItem;
 import daxz.dev.haulover.Skills.Farming.Crops.Tomato.TomatoSeed;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.AdvancedWateringCan;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.BasicWateringCan;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,15 +19,17 @@ public class ItemRegistry {
     private static final Map<String, Supplier<ItemStack>> REGISTRY = new HashMap<>();
     public static void registerItems() {
 
-        register(BasicWateringCan.ID, () -> new BasicWateringCan().createItem());
-        register(AdvancedWateringCan.ID, () -> new AdvancedWateringCan().createItem());
-        register(TomatoItem.ID, () -> new TomatoItem().createItem());
-        register(TomatoSeed.ID, () -> new TomatoSeed().createItem());
+        register(BasicWateringCan.INSTANCE);
+        register(AdvancedWateringCan.INSTANCE);
+        register(TomatoItem.INSTANCE);
+        register(TomatoSeed.INSTANCE);
 
     }
 
-    private static void register(String id, Supplier<ItemStack> supplier) {
-        REGISTRY.put(id, supplier);
+    private static void register(HauloverItem item) {
+
+        REGISTRY.put(item.getID(), item);
+        ShapedRecipe recipe = item.getRecipe();
     }
 
     public static ItemStack getItem(String id) {

@@ -13,6 +13,8 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.UUID;
@@ -34,6 +36,32 @@ public class AdvancedWateringCan implements WateringCan{
     //flags
     public static final NamespacedKey stopConsume = new NamespacedKey(Haulover.getInstance(), "flag-no_consume");
     public static final AdvancedWateringCan INSTANCE = new AdvancedWateringCan();
+
+    @Override
+    public ShapedRecipe getRecipe() {
+        NamespacedKey key = new NamespacedKey(Haulover.getInstance(), ID);
+        ItemStack item = createItem();
+        ShapedRecipe recipe = new ShapedRecipe(key, item));
+
+        recipe.shape(
+                "GGG",
+                "GBG",
+                "GGG"
+        );
+
+        item.editPersistentDataContainer(pdc -> {
+
+            pdc.remove(uuid);
+            pdc.remove(wateringCanID);
+
+        });
+
+        recipe.setIngredient('G', Material.GOLD_INGOT);
+        recipe.setIngredient('B', new RecipeChoice.ExactChoice(item));
+
+        return recipe;
+
+    }
 
 
     public ItemStack createItem() {

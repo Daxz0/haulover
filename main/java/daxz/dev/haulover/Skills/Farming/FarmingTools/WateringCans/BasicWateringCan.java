@@ -12,6 +12,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.UUID;
@@ -19,7 +20,10 @@ import java.util.UUID;
 @SuppressWarnings("UnstableApiUsage")
 public class BasicWateringCan implements WateringCan{
     public static final String ID = "basic_watering_can";
-    @Override public String getID() { return "basic_watering_can"; }
+    @Override public String getID(){ return ID;}
+
+
+
     @Override public int getMaxCapacity() { return 100; }
     @Override public float getSpeed() { return 3.0F; }
     @Override public float getCooldownSpeed() {return 1f; }
@@ -57,6 +61,7 @@ public class BasicWateringCan implements WateringCan{
         );
 
 
+
         item.editPersistentDataContainer(pdc -> {
             pdc.set(hauloverItemID, PersistentDataType.STRING, ID);
             pdc.set(stopConsume, PersistentDataType.BOOLEAN, true);
@@ -64,7 +69,27 @@ public class BasicWateringCan implements WateringCan{
             pdc.set(wateringCanID, PersistentDataType.BOOLEAN, true);
             pdc.set(wateringCanCapacity, PersistentDataType.FLOAT, 0f);
         });
+
+
         return item;
+
+    }
+
+    @Override
+    public ShapedRecipe getRecipe() {
+        NamespacedKey key = new NamespacedKey(Haulover.getInstance(), ID);
+        ShapedRecipe recipe = new ShapedRecipe(key, createItem());
+
+        recipe.shape(
+                "SSS",
+                "IBI",
+                " I "
+        );
+        recipe.setIngredient('S', Material.OAK_SLAB);
+        recipe.setIngredient('I', Material.IRON_INGOT);
+        recipe.setIngredient('B', Material.BUCKET);
+
+        return recipe;
 
     }
 

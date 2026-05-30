@@ -1,6 +1,7 @@
 package daxz.dev.haulover.Skills.Farming.Crops.Tomato;
 
 import daxz.dev.haulover.Haulover;
+import daxz.dev.haulover.Registry.HauloverItem;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.WateringCan;
 import daxz.dev.haulover.Utilities.Lib.LoreTool;
 import io.papermc.paper.datacomponent.DataComponentTypes;
@@ -14,19 +15,25 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.persistence.PersistentDataType;
 
+import javax.annotation.Nullable;
 import java.util.UUID;
 
 @SuppressWarnings("UnstableApiUsage")
-public class TomatoSeed{
+public class TomatoSeed implements HauloverItem {
     public static final String ID = "tomato_seed";
+    @Override public String getID(){return ID;}
+    @Override public @Nullable ShapedRecipe getRecipe() { return null; }
+
 
     public static final NamespacedKey hauloverItemID = new NamespacedKey(Haulover.getInstance(), "haulover_item");
     public static final NamespacedKey uuid = new NamespacedKey(Haulover.getInstance(), "uuid");
 
     //flags
     public static final TomatoSeed INSTANCE = new TomatoSeed();
+
 
 
     public ItemStack createItem() {
