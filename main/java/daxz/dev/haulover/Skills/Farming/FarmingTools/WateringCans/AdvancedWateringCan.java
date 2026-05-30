@@ -12,11 +12,13 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.persistence.PersistentDataType;
 
+import javax.annotation.Nullable;
 import java.util.UUID;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -26,6 +28,7 @@ public class AdvancedWateringCan implements WateringCan{
     @Override public int getMaxCapacity() { return 200; }
     @Override public float getSpeed() { return 2.5F; }
     @Override public float getCooldownSpeed() {return 0.8f; }
+    @Override public @Nullable ShapedRecipe getRecipe() { return null; }
 
 
     public static final NamespacedKey hauloverItemID = new NamespacedKey(Haulover.getInstance(), "haulover_item");
@@ -37,32 +40,6 @@ public class AdvancedWateringCan implements WateringCan{
     public static final NamespacedKey stopConsume = new NamespacedKey(Haulover.getInstance(), "flag-no_consume");
     public static final AdvancedWateringCan INSTANCE = new AdvancedWateringCan();
 
-    @Override
-    public ShapedRecipe getRecipe() {
-        NamespacedKey key = new NamespacedKey(Haulover.getInstance(), ID);
-        ItemStack item = createItem();
-        ShapedRecipe recipe = new ShapedRecipe(key, item);
-
-        recipe.shape(
-                "GGG",
-                "GBG",
-                "GGG"
-        );
-
-        ItemStack ing = BasicWateringCan.INSTANCE.createItem();
-        ing.editPersistentDataContainer(pdc -> {
-
-            pdc.remove(uuid);
-            pdc.remove(wateringCanID);
-
-        });
-
-        recipe.setIngredient('G', Material.GOLD_INGOT);
-        recipe.setIngredient('B', new RecipeChoice.ExactChoice(ing));
-
-        return recipe;
-
-    }
 
 
     public ItemStack createItem() {
@@ -99,3 +76,4 @@ public class AdvancedWateringCan implements WateringCan{
 
 
 }
+

@@ -1,6 +1,7 @@
 package daxz.dev.haulover.Registry;
 
 import daxz.dev.haulover.Haulover;
+import daxz.dev.haulover.Skills.Farming.FarmingTools.WateringCans.AdvancedWateringCanRecipe;
 import daxz.dev.haulover.Skills.Farming.Helpers.DisabledBonemeal;
 import daxz.dev.haulover.Skills.Farming.FarmingTools.FarmingToolHandlers.WateringCanHandler;
 import daxz.dev.haulover.Skills.Farming.Helpers.OverrideFarmland;
@@ -19,6 +20,7 @@ public class EventRegister {
         pm.registerEvents(new NoConsume(), Haulover.getInstance());
         pm.registerEvents(new DisabledBonemeal(), Haulover.getInstance());
         pm.registerEvents(new RandomSeedDrop(), Haulover.getInstance());
+        pm.registerEvents(new AdvancedWateringCanRecipe(), Haulover.getInstance());
 
     }
 }
