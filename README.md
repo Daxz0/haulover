@@ -21,4 +21,4 @@ A **haulover** (hah get it like an overhaul) of Minecraft's farming systems, slo
 [![Demo Video](https://img.youtube.com/vi/9c3gMd8ICb0/maxresdefault.jpg)](https://youtu.be/9c3gMd8ICb0)
 
 
-Approval pending on Modrinth -> https://modrinth.com/plugin/haulover
+Approved on Modrinth -> https://modrinth.com/plugin/haulover
